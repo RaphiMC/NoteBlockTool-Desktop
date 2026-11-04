@@ -107,7 +107,7 @@ public final class SoundMap {
                 }
             }
             for (NbsCustomInstrument customInstrument : SongUtil.getUsedNbsCustomInstruments(song)) {
-                final String fileName = customInstrument.getSoundFilePathOr("").replace(File.separatorChar, '/');
+                final String fileName = customInstrument.getSoundFilePathOr("").replace('\\', '/');
                 if (ALL_SOUND_LOCATIONS.containsKey(fileName)) {
                     soundData.put(fileName, IoUtil.readFully(ALL_SOUND_LOCATIONS.get(fileName).openStream()));
                 }

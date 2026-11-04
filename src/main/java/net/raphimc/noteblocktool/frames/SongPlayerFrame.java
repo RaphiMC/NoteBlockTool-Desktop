@@ -62,7 +62,7 @@ public final class SongPlayerFrame extends JFrame {
     private static SongPlayerFrame instance;
     private static Point lastPosition;
     private static int lastVolume = 90;
-    private static boolean lastTimingJitter = false;
+    private static boolean lastTimingJitter = true;
     private static int lastMaxSounds = 4096;
     private static boolean lastMultithreaded = false;
 

@@ -107,7 +107,7 @@ public class ExportFrame extends JFrame {
     // Playback settings
     private final JPanel playbackPanel = new JPanel(new GridBagLayout());
     private final JSlider volume = new JSlider(0, 100, 90);
-    private final JCheckBox timingJitter = new JCheckBox("Artificial Timing Jitter");
+    private final JCheckBox timingJitter = new JCheckBox("Artificial Timing Jitter", true);
 
     // Renderer settings
     private final JPanel rendererPanel = new JPanel(new GridBagLayout());
