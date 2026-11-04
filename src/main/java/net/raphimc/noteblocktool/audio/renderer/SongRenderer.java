@@ -99,7 +99,7 @@ public abstract class SongRenderer extends SongPlayer implements AutoCloseable {
                 throw new IllegalArgumentException("Unsupported instrument class: " + note.getInstrument().getClass().getName());
             }
             if (note.getVolume() > 0F && this.sounds.containsKey(sound)) {
-                this.masterMixer.add(new NoteAudioSource(this.sounds.get(sound), note));
+                this.masterMixer.add(new NoteAudioSource(this.sounds.get(sound), note, this.audioMixer.getFormat().channelCount() == 2));
             }
         }
         this.masterMixer.limitSourceCount(this.maxSourceCount);
@@ -218,16 +218,22 @@ public abstract class SongRenderer extends SongPlayer implements AutoCloseable {
 
         private final Note note;
 
-        private NoteAudioSource(final AudioBuffer buffer, final Note note) {
+        private NoteAudioSource(final AudioBuffer buffer, final Note note, final boolean stereo) {
             super(buffer, new LinearResampler());
             this.note = note;
             this.pitch().set(note.getPitch());
-            if (note.getPanning() != 0F && note.getVolume() != 1F) {
-                this.processors().add(new GainPanProcessor(note.getVolume(), note.getPanning()));
-            } else if (note.getVolume() != 1F) {
-                this.processors().add(new GainProcessor(note.getVolume()));
-            } else if (note.getPanning() != 0F) {
-                this.processors().add(new PanProcessor(note.getPanning()));
+            if (stereo) {
+                if (note.getPanning() != 0F && note.getVolume() != 1F) {
+                    this.processors().add(new GainPanProcessor(note.getVolume(), note.getPanning()));
+                } else if (note.getVolume() != 1F) {
+                    this.processors().add(new GainProcessor(note.getVolume()));
+                } else if (note.getPanning() != 0F) {
+                    this.processors().add(new PanProcessor(note.getPanning()));
+                }
+            } else {
+                if (note.getVolume() != 1F) {
+                    this.processors().add(new GainProcessor(note.getVolume()));
+                }
             }
         }
 
