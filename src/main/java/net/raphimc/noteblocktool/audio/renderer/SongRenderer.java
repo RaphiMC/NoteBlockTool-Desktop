@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public abstract class SongRenderer extends SongPlayer implements AutoCloseable {
 
@@ -56,8 +56,10 @@ public abstract class SongRenderer extends SongPlayer implements AutoCloseable {
     private final GainProcessor masterGainProcessor;
     private final Mixer masterMixer;
     private final int maxSourceCount;
+    private final Random timingJitterRandom;
     private boolean running;
     private boolean timingJitter;
+    private float timingJitterDriftMillis;
     private long lastTickTime;
 
     public SongRenderer(final Song song, final int maxSounds, final boolean limited, final boolean multithreaded, final AudioFormat audioFormat) {
@@ -85,6 +87,7 @@ public abstract class SongRenderer extends SongPlayer implements AutoCloseable {
             this.masterMixer = this.audioMixer;
         }
         this.maxSourceCount = maxSounds;
+        this.timingJitterRandom = new Random(song.getFileNameOr("").hashCode());
     }
 
     @Override
@@ -128,10 +131,13 @@ public abstract class SongRenderer extends SongPlayer implements AutoCloseable {
         }
         float millis = 1000F / this.getCurrentTicksPerSecond();
         if (this.timingJitter) {
-            millis += ThreadLocalRandom.current().nextFloat(-1F, 1F);
-            if (millis <= 0F) {
-                millis = 0.1F;
-            }
+            final float steering = this.timingJitterDriftMillis / 10F;
+            float jitter;
+            do {
+                jitter = this.timingJitterRandom.nextFloat(-Math.min(1F + steering, 1F), Math.min(1F - steering, 1F));
+            } while (millis + jitter <= 0F);
+            this.timingJitterDriftMillis += jitter;
+            millis += jitter;
         }
         return this.audioMixer.renderMillis(millis);
     }
