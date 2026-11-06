@@ -1,8 +1,8 @@
-# NoteBlockTool
+# NoteBlockTool (Desktop)
 Tool for importing, exporting, batch manipulating and playing Minecraft note block songs.
 
-To download the latest stable version, go to [GitHub Releases](https://github.com/RaphiMC/NoteBlockTool/releases/latest).  
-To download the latest dev version, go to [GitHub Actions](https://github.com/RaphiMC/NoteBlockTool/actions/workflows/build.yml) or [Lenni0451's Jenkins](https://build.lenni0451.net/job/NoteBlockTool/).
+To download the latest stable version, go to [GitHub Releases](https://github.com/RaphiMC/NoteBlockTool-Desktop/releases/latest).  
+To download the latest dev version, go to [GitHub Actions](https://github.com/RaphiMC/NoteBlockTool-Desktop/actions/workflows/build.yml) or [Lenni0451's Jenkins](https://build.lenni0451.net/job/NoteBlockTool/).
 
 Using it is very simple, just run the jar file, and it will start a user interface. Detailed instructions can be found in the [Usage](#usage) section.
 
@@ -57,6 +57,6 @@ NoteBlockTool uses [NoteBlockLib](https://github.com/RaphiMC/NoteBlockLib) for m
 
 ## Contact
 If you encounter any issues, please report them on the
-[issue tracker](https://github.com/RaphiMC/NoteBlockTool/issues).  
+[issue tracker](https://github.com/RaphiMC/NoteBlockTool-Desktop/issues).  
 If you just want to talk or need help using NoteBlockTool feel free to join my
 [Discord](https://raphimc.net/discord).

@@ -1,5 +1,5 @@
 /*
- * This file is part of NoteBlockTool - https://github.com/RaphiMC/NoteBlockTool
+ * This file is part of NoteBlockTool-Desktop - https://github.com/RaphiMC/NoteBlockTool-Desktop
  * Copyright (C) 2022-2026 RK_01/RaphiMC and contributors
  *
  * This program is free software; you can redistribute it and/or
